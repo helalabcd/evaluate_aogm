@@ -1,5 +1,5 @@
-from .helpers import digraph_from_bust
-from .aogm import digraph_from_bust
+from helpers import digraph_from_bust
+from aogm import digraph_from_bust
 
 
 def calculate_aogm(model):
