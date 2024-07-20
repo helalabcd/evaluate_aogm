@@ -5,8 +5,10 @@ from PIL import Image
 import os
 from tqdm import tqdm
 
-def calculate_aogm(model):
+def calculate_aogm(model, mode="first"):
 
+    # mode can be "first" or "full"
+    
     model.configure_inference()
 
     aogms = []
@@ -18,5 +20,9 @@ def calculate_aogm(model):
         label_graph = digraph_from_bust(burst)
         aogm = calculate_AOGM(label_graph, predicted_graph)
         aogms.append(aogm)
-    print("Average AOGM", sum(aogm) / len(aogm))
+
+        if mode == "first":
+            print("AOGM (first only)", aogm)
+            return
+    print("Average AOGM (full)", sum(aogms) / len(aogms))
     
