@@ -12,7 +12,7 @@ def calculate_aogm(model, mode="first"):
     model.configure_inference()
 
     aogms = []
-    for burst in tqdm(os.listdir("HeLa_dataset/test")):
+    for burst in tqdm(sorted(os.listdir("HeLa_dataset/test"))):
     
         images = [Image.open(f"HeLa_dataset/test/{burst}/img1/" + x) for x in sorted(os.listdir(f"HeLa_dataset/test/{burst}/img1/"))]
         predicted_graph = model.forward_inference(images)
