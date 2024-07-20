@@ -9,7 +9,7 @@ def calculate_aogm(model):
     model.configure_inference()
 
     aogms = []
-    for burst in os.listdir("HeLa_dataset/test"):
+    for burst in tqdm(os.listdir("HeLa_dataset/test")):
     
         images = [Image.open(f"HeLa_dataset/test/{burst}/img1/" + x) for x in sorted(os.listdir(f"HeLa_dataset/test/{burst}/img1/"))]
         predicted_graph = model.forward_inference(images)
@@ -17,5 +17,5 @@ def calculate_aogm(model):
         label_graph = digraph_from_bust(burst)
         aogm = calculate_AOGM(label_graph, predicted_graph)
         aogms.append(aogm)
-        print("AOGM", aogm)
+    print("Average AOGM", sum(aogm) / len(aogm))
     
