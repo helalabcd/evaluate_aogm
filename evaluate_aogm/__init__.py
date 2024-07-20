@@ -3,6 +3,7 @@ from .aogm import calculate_AOGM
 
 from PIL import Image
 import os
+from tqdm import tqdm
 
 def calculate_aogm(model):
 
