@@ -1,6 +1,7 @@
 from .helpers import digraph_from_bust
 from .aogm import calculate_AOGM
 
+from PIL import Image
 import os
 
 def calculate_aogm(model):
