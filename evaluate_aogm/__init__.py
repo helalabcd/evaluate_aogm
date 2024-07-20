@@ -6,6 +6,8 @@ import os
 
 def calculate_aogm(model):
 
+    model.configure_inference()
+
     aogms = []
     for burst in os.listdir("HeLa_dataset/test"):
     
