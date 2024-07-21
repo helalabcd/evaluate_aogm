@@ -22,7 +22,5 @@ def calculate_aogm(model, mode="first"):
         aogms.append(aogm)
 
         if mode == "first":
-            print("AOGM (first only)", aogm)
-            return
-    print("Average AOGM (full)", sum(aogms) / len(aogms))
-    
+            return aogm
+    return sum(aogms) / len(aogms)    
