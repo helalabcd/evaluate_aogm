@@ -24,3 +24,23 @@ def calculate_aogm(model, mode="first"):
         if mode == "first":
             return aogm
     return sum(aogms) / len(aogms)    
+
+def calculate_edit_distance(model, mode="first"):
+
+    # mode can be "first" or "full"
+    
+    model.configure_inference()
+
+    eds = []
+    for burst in tqdm(sorted(os.listdir("HeLa_dataset/test"))):
+    
+        images = [Image.open(f"HeLa_dataset/test/{burst}/img1/" + x) for x in sorted(os.listdir(f"HeLa_dataset/test/{burst}/img1/"))]
+        predicted_graph = model.forward_inference(images)
+    
+        label_graph = digraph_from_bust(burst)
+        ed = nx.graph_edit_distance(label_graph, predicted_graph)
+        eds.append(ed)
+
+        if mode == "first":
+            return ed
+    return sum(eds) / len(eds)    
