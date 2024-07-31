@@ -4,6 +4,7 @@ from .aogm import calculate_AOGM
 from PIL import Image
 import os
 from tqdm import tqdm
+import networkx as nx
 
 def calculate_aogm(model, mode="first"):
 
