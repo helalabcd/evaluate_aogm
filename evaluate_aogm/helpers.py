@@ -6,13 +6,14 @@ from PIL import Image
 import math
 
 def plot_sequence(burst, g, filename=None):
+    print("Plotting burst", burst)
     if filename is None:
         print("You must specify a filename to plot sequences!")
         return
-    frames = os.listdir("Burst4_A2_1_VesselID-29_1-0/img1/")
+    frames = os.listdir(f"{burst}/img1/")
     frames = [x for x in frames if x.endswith(".tiff")]
     frames = sorted(frames)
-    frames = ["Burst4_A2_1_VesselID-29_1-0/img1/" + x for x in frames]
+    frames = [f"{burst}/img1/" + x for x in frames]
 
     side = int(math.sqrt(len(frames))) + 1
     fig, ax = plt.subplots(side, side, figsize=(50,50))
