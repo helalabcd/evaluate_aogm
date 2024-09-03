@@ -32,9 +32,9 @@ def plot_sequence(burst, g, g_pred, filename=None):
         ax.flat[t-1].scatter([x], [y], c="red")
 
     for n in g_pred.nodes:
-        t = g.nodes[n]["t"]
-        x = g.nodes[n]["x"]
-        y = g.nodes[n]["y"]
+        t = g_pred.nodes[n]["t"]
+        x = g_pred.nodes[n]["x"]
+        y = g_pred.nodes[n]["y"]
         ax.flat[t-1].scatter([x], [y], c="blue")
 
     
