@@ -4,8 +4,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from PIL import Image
 import math
+import matplotlib.colors as mcolors
 
-def plot_sequence(burst, g, filename=None):
+colors = list(mcolors.CSS4_COLORS.keys())
+
+def plot_sequence(burst, g, g_pred, filename=None):
     print("Plotting burst", burst)
     if filename is None:
         print("You must specify a filename to plot sequences!")
@@ -26,7 +29,15 @@ def plot_sequence(burst, g, filename=None):
         t = g.nodes[n]["t"]
         x = g.nodes[n]["x"]
         y = g.nodes[n]["y"]
-        ax.flat[t-1].scatter([x], [y])
+        ax.flat[t-1].scatter([x], [y], c="red")
+
+    for n in g_pred.nodes:
+        t = g.nodes[n]["t"]
+        x = g.nodes[n]["x"]
+        y = g.nodes[n]["y"]
+        ax.flat[t-1].scatter([x], [y], c="blue")
+
+    
     plt.savefig(filename)
 
 def digraph_from_bust(burst):
