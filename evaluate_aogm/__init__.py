@@ -1,4 +1,4 @@
-from .helpers import digraph_from_bust
+from .helpers import digraph_from_bust, plot_sequence
 from .aogm import calculate_AOGM
 
 from PIL import Image
@@ -6,7 +6,7 @@ import os
 from tqdm import tqdm
 import networkx as nx
 
-def calculate_aogm(model, mode="first"):
+def calculate_aogm(model, mode="first", plot_tracking_sequences=True):
 
     # mode can be "first" or "full"
     
@@ -21,6 +21,10 @@ def calculate_aogm(model, mode="first"):
         label_graph = digraph_from_bust(burst)
         aogm = calculate_AOGM(label_graph, predicted_graph)
         aogms.append(aogm)
+
+        if plot_tracking_sequences:
+            print("Plotting sequence")
+            plot_sequence(burst, predicted_graph)
 
         if mode == "first":
             return aogm
