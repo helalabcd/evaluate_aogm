@@ -5,7 +5,10 @@ import matplotlib.pyplot as plt
 from PIL import Image
 import math
 
-def plot_sequence(burst, g):
+def plot_sequence(burst, g, filename=None):
+    if filename is None:
+        print("You must specify a filename to plot sequences!")
+        return
     frames = os.listdir("Burst4_A2_1_VesselID-29_1-0/img1/")
     frames = [x for x in frames if x.endswith(".tiff")]
     frames = sorted(frames)
@@ -23,7 +26,7 @@ def plot_sequence(burst, g):
         x = g.nodes[n]["x"]
         y = g.nodes[n]["y"]
         ax.flat[t-1].scatter([x], [y])
-    plt.savefig("output.png")
+    plt.savefig(filename)
 
 def digraph_from_bust(burst):
     burst = "HeLa_dataset/test/" + burst
