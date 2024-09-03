@@ -6,7 +6,7 @@ import os
 from tqdm import tqdm
 import networkx as nx
 
-def calculate_aogm(model, mode="first", plot_tracking_sequences=True):
+def calculate_aogm(model, mode="first", plot_tracking_sequences=True, filename_prefix="no_prefix"):
 
     # mode can be "first" or "full"
     
@@ -24,7 +24,8 @@ def calculate_aogm(model, mode="first", plot_tracking_sequences=True):
 
         if plot_tracking_sequences:
             print("Plotting sequence")
-            plot_sequence(burst, predicted_graph)
+            os.system("mkdir plotting")
+            plot_sequence(burst, predicted_graph, f"plotting/{filename_prefix}/{burst}.png")
 
         if mode == "first":
             return aogm
