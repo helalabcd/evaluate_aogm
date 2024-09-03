@@ -26,17 +26,22 @@ def plot_sequence(burst, g, g_pred, filename=None):
         ax.flat[idx-1].imshow(Image.open(frame))
 
     for n in g.nodes:
-        t = g.nodes[n]["t"]
-        x = g.nodes[n]["x"]
-        y = g.nodes[n]["y"]
-        ax.flat[t-1].scatter([x], [y], c="red")
+        try:
+            t = g.nodes[n]["t"]
+            x = g.nodes[n]["x"]
+            y = g.nodes[n]["y"]
+            ax.flat[t-1].scatter([x], [y], c="red")
+        except:
+            print("key error or sth in label graph with node", n)
 
     for n in g_pred.nodes:
-        t = g_pred.nodes[n]["t"]
-        x = g_pred.nodes[n]["x"]
-        y = g_pred.nodes[n]["y"]
-        ax.flat[t-1].scatter([x], [y], c="blue")
-
+        try:
+            t = g_pred.nodes[n]["t"]
+            x = g_pred.nodes[n]["x"]
+            y = g_pred.nodes[n]["y"]
+            ax.flat[t-1].scatter([x], [y], c="blue")
+        except:
+            print("key error or sth in label graph with node", n)
     
     plt.savefig(filename)
 
