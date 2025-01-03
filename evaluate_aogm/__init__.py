@@ -30,7 +30,7 @@ def calculate_aogm(model, mode="first", plot_tracking_sequences=True, filename_p
 
         if mode == "first":
             return aogm
-
+    print("AOGMs list", aogms)
     median = statistics.median(aogms)
     return median
     return sum(aogms) / len(aogms)    
