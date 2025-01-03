@@ -5,6 +5,7 @@ from PIL import Image
 import os
 from tqdm import tqdm
 import networkx as nx
+import statistics
 
 def calculate_aogm(model, mode="first", plot_tracking_sequences=True, filename_prefix="no_prefix"):
 
@@ -29,6 +30,9 @@ def calculate_aogm(model, mode="first", plot_tracking_sequences=True, filename_p
 
         if mode == "first":
             return aogm
+
+    median = statistics.median(aogms)
+    return median
     return sum(aogms) / len(aogms)    
 
 def calculate_edit_distance(model, mode="first"):
