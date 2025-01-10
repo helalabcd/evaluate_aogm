@@ -6,6 +6,8 @@ from PIL import Image
 import math
 import matplotlib.colors as mcolors
 
+HELAPATH = os.getenv('helapath')
+
 colors = list(mcolors.CSS4_COLORS.keys())
 
 def plot_sequence(burst, g, g_pred, filename=None):
@@ -46,7 +48,7 @@ def plot_sequence(burst, g, g_pred, filename=None):
     plt.savefig(filename)
 
 def digraph_from_bust(burst):
-    burst = "HeLa_dataset/test/" + burst
+    burst = HELAPATH + "/test/" + burst
 
     frames = sorted(os.listdir(burst + "/img1/"))
     frames = [burst + "/img1/" + x for x in frames]

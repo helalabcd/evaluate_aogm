@@ -7,6 +7,8 @@ from tqdm import tqdm
 import networkx as nx
 import statistics
 
+HELAPATH = os.getenv('helapath')
+
 def calculate_aogm(model, mode="first", plot_tracking_sequences=True, filename_prefix="no_prefix"):
 
     # mode can be "first" or "full"
@@ -15,9 +17,9 @@ def calculate_aogm(model, mode="first", plot_tracking_sequences=True, filename_p
 
     aogms = []
     aogm_dict = {}
-    for burst in tqdm(sorted(os.listdir("HeLa_dataset/test"))):
+    for burst in tqdm(sorted(os.listdir(os.path.join(HELAPATH, "test")))):
     
-        images = [Image.open(f"HeLa_dataset/test/{burst}/img1/" + x) for x in sorted(os.listdir(f"HeLa_dataset/test/{burst}/img1/"))]
+        images = [Image.open(os.path.join(HELAPATH, f"test/{burst}/img1/" + x)) for x in sorted(os.listdir(HELAPATH + f"/test/{burst}/img1/"))]
         predicted_graph = model.forward_inference(images)
     
         label_graph = digraph_from_bust(burst)
@@ -28,7 +30,7 @@ def calculate_aogm(model, mode="first", plot_tracking_sequences=True, filename_p
         if plot_tracking_sequences:
             print("Plotting sequence")
             os.system("mkdir plotting")
-            plot_sequence("HeLa_dataset/test/" + burst, label_graph, predicted_graph, f"plotting/{filename_prefix}_{burst}.png")
+            plot_sequence(HELAPATH + "/test/" + burst, label_graph, predicted_graph, f"plotting/{filename_prefix}_{burst}.png")
 
         if mode == "first":
             return aogm
@@ -46,9 +48,9 @@ def calculate_edit_distance(model, mode="first"):
     model.configure_inference()
 
     eds = []
-    for burst in tqdm(sorted(os.listdir("HeLa_dataset/test"))):
+    for burst in tqdm(sorted(os.listdir(os.path.join(HELAPATH, "test")))):
     
-        images = [Image.open(f"HeLa_dataset/test/{burst}/img1/" + x) for x in sorted(os.listdir(f"HeLa_dataset/test/{burst}/img1/"))]
+        images = [Image.open(HELAPATH + f"/test/{burst}/img1/" + x) for x in sorted(os.listdir(HELAPATH + f"/test/{burst}/img1/"))]
         predicted_graph = model.forward_inference(images)
     
         label_graph = digraph_from_bust(burst)
