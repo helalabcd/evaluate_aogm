@@ -14,6 +14,7 @@ def calculate_aogm(model, mode="first", plot_tracking_sequences=True, filename_p
     model.configure_inference()
 
     aogms = []
+    aogm_dict = {}
     for burst in tqdm(sorted(os.listdir("HeLa_dataset/test"))):
     
         images = [Image.open(f"HeLa_dataset/test/{burst}/img1/" + x) for x in sorted(os.listdir(f"HeLa_dataset/test/{burst}/img1/"))]
@@ -22,6 +23,7 @@ def calculate_aogm(model, mode="first", plot_tracking_sequences=True, filename_p
         label_graph = digraph_from_bust(burst)
         aogm = calculate_AOGM(label_graph, predicted_graph)
         aogms.append(aogm)
+        aogm_dict[burst] = aogm
 
         if plot_tracking_sequences:
             print("Plotting sequence")
@@ -31,7 +33,9 @@ def calculate_aogm(model, mode="first", plot_tracking_sequences=True, filename_p
         if mode == "first":
             return aogm
     print("AOGMs list", aogms)
+    print("AOGMs dict", aogm_dict)
     median = statistics.median(aogms)
+    return aogm_dict
     return median
     return sum(aogms) / len(aogms)    
 
