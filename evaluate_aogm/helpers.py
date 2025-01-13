@@ -45,6 +45,7 @@ def plot_sequence(burst, g, g_pred, filename=None, title="null"):
         except:
             print("key error or sth in label graph with node", n)
     
+    plt.title(title)
     plt.savefig(filename)
 
 def digraph_from_bust(burst):
