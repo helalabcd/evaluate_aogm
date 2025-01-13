@@ -30,7 +30,8 @@ def calculate_aogm(model, mode="first", plot_tracking_sequences=True, filename_p
         if plot_tracking_sequences:
             print("Plotting sequence")
             os.system("mkdir plotting")
-            plot_sequence(HELAPATH + "/test/" + burst, label_graph, predicted_graph, f"plotting/{filename_prefix}_{burst}.png", aogm)
+            title = f"AOGM: {aogm}, label_graph(e: {len(label_graph.edges)}, n: {len(label_graph.nodes)}) | predicted(e: {len(predicted_graph.edges)}, n: {len(predicted_graph.nodes)})"
+            plot_sequence(HELAPATH + "/test/" + burst, label_graph, predicted_graph, f"plotting/{filename_prefix}_{burst}.png", title)
 
         if mode == "first":
             return aogm
