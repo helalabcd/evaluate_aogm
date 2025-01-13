@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="Evaluate AOGM",
-    version="0.1.0",
+    version="0.2.0",
     author="Constantin Dalinghaus",
     author_email="dalinghaus.constantin@gmail.com",
     description="Evaluates tracking results using AOGM",

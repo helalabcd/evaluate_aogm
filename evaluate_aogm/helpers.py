@@ -10,7 +10,7 @@ HELAPATH = os.getenv('helapath')
 
 colors = list(mcolors.CSS4_COLORS.keys())
 
-def plot_sequence(burst, g, g_pred, filename=None):
+def plot_sequence(burst, g, g_pred, filename=None, aogm="null"):
     print("Plotting burst", burst)
     if filename is None:
         print("You must specify a filename to plot sequences!")
