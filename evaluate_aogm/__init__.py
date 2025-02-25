@@ -9,7 +9,7 @@ import statistics
 
 HELAPATH = os.getenv('helapath')
 
-def calculate_aogm(model, mode="first", plot_tracking_sequences=True, filename_prefix="no_prefix"):
+def calculate_aogm(model, mode="first", plot_tracking_sequences=True, filename_prefix="no_prefix", SPLIT="test"):
 
     # mode can be "first" or "full"
     
@@ -17,9 +17,9 @@ def calculate_aogm(model, mode="first", plot_tracking_sequences=True, filename_p
 
     aogms = []
     aogm_dict = {}
-    for burst in tqdm(sorted(os.listdir(os.path.join(HELAPATH, "test")))):
+    for burst in tqdm(sorted(os.listdir(os.path.join(HELAPATH, SPLIT)))):
     
-        images = [Image.open(os.path.join(HELAPATH, f"test/{burst}/img1/" + x)) for x in sorted(os.listdir(HELAPATH + f"/test/{burst}/img1/"))]
+        images = [Image.open(os.path.join(HELAPATH, f"{SPLIT}/{burst}/img1/" + x)) for x in sorted(os.listdir(HELAPATH + f"/{SPLIT}/{burst}/img1/"))]
         predicted_graph = model.forward_inference(images)
     
         label_graph = digraph_from_bust(burst)
@@ -31,7 +31,7 @@ def calculate_aogm(model, mode="first", plot_tracking_sequences=True, filename_p
             print("Plotting sequence")
             os.system("mkdir plotting")
             title = f"AOGM: {aogm}, label_graph(e: {len(label_graph.edges)}, n: {len(label_graph.nodes)}) | predicted(e: {len(predicted_graph.edges)}, n: {len(predicted_graph.nodes)})"
-            plot_sequence(HELAPATH + "/test/" + burst, label_graph, predicted_graph, f"plotting/{filename_prefix}_{burst}.png", title)
+            plot_sequence(HELAPATH + f"/{SPLIT}/" + burst, label_graph, predicted_graph, f"plotting/{filename_prefix}_{burst}.png", title)
 
         if mode == "first":
             return aogm
@@ -42,16 +42,16 @@ def calculate_aogm(model, mode="first", plot_tracking_sequences=True, filename_p
     return median
     return sum(aogms) / len(aogms)    
 
-def calculate_edit_distance(model, mode="first"):
+def calculate_edit_distance(model, SPLIT="test", mode="first"):
 
     # mode can be "first" or "full"
     
     model.configure_inference()
 
     eds = []
-    for burst in tqdm(sorted(os.listdir(os.path.join(HELAPATH, "test")))):
+    for burst in tqdm(sorted(os.listdir(os.path.join(HELAPATH, SPLIT)))):
     
-        images = [Image.open(HELAPATH + f"/test/{burst}/img1/" + x) for x in sorted(os.listdir(HELAPATH + f"/test/{burst}/img1/"))]
+        images = [Image.open(HELAPATH + f"/{SPLIT}/{burst}/img1/" + x) for x in sorted(os.listdir(HELAPATH + f"/{SPLIT}/{burst}/img1/"))]
         predicted_graph = model.forward_inference(images)
     
         label_graph = digraph_from_bust(burst)
