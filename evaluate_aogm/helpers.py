@@ -48,8 +48,8 @@ def plot_sequence(burst, g, g_pred, filename=None, title="null"):
     plt.title(title)
     plt.savefig(filename)
 
-def digraph_from_bust(burst):
-    burst = HELAPATH + "/test/" + burst
+def digraph_from_bust(burst, split="test"):
+    burst = HELAPATH + f"/{split}/" + burst
 
     frames = sorted(os.listdir(burst + "/img1/"))
     frames = [burst + "/img1/" + x for x in frames]
